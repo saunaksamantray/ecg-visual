@@ -39,7 +39,7 @@ def read_edf(path=None,no_samples=100000):
 
 
     
-path1="D:/SELECTED_RECORDS/11-38-14/11-38-14.edf"
+path1="E:\\MachineLearningProjects\\cyprus\\Data files\\11-25-38\\11-25-38.edf"
 data,f,info,time, ntime,ch_names, frame=read_edf(path1)
 
 app = Flask(__name__)
@@ -48,9 +48,12 @@ app = Flask(__name__)
 def cb():
     return gm(request.args.get('data'))
    
-@app.route('/')
+@app.route('/visual')
 def index():
-    return render_template('chartsajax.html',  graphJSON=gm())
+    return render_template('chartsajax.html',  graphJSON=gm(), n_strips=calculate_N(len(data),10000))
+
+def calculate_N(x,y):
+    return int(x/y)
 
 def gm(sec='1'):
     
@@ -75,10 +78,10 @@ def gm(sec='1'):
 
 
     
-    path2="D:/SELECTED_RECORDS/11-38-14/generic_extended_ann.csv"
+    '''path2="D:/SELECTED_RECORDS/11-38-14/generic_extended_ann.csv"
     df1 = pd.read_csv(path2) 
     rpeaks=df1['Msec']
-    ann=df1['Type']
+    ann=df1['Type']'''
 
     ti=np.linspace(0,10000,10000)
     '''
@@ -103,7 +106,7 @@ def gm(sec='1'):
     return graphJSON
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 
 
 

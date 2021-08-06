@@ -12,12 +12,23 @@
             });
         }
     </script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/main.css') }}">
+    <title>ECG Viewer</title>
 </head>
 
-<body style="font-family:arial, sans-serif">
-    <h1>Select the time strip</h1>
-    <p>Make sure you enter an Integer, e.g. 1,2,3</p>
-    <input type="text" id="fname" name="fname" onchange="cb(this.value)">
+<body>
+    <div class="navbar">
+        <h1>Electrocardiogram Viewer</h1>
+    </div>
+    <section class="desc">
+        <h4>Select a time strip</h4>
+        <p>The strips are of 40 seconds range.</p>
+        <form class="inpArea">
+            <input id="strip" placeholder="Enter an Integer (1-{{n_strips}})" type="text", name="fname">
+            <button id="gobutton" onclick="cb(document.getElementById('strip').value)">Go</button>
+        </form>
+    </section>
+    
     <div id="chart" class="chart"></div>
 </body>
 
