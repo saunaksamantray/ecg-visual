@@ -7,7 +7,8 @@
         function cb(selection) {
             $.getJSON({
                 url: "/callback", data: { 'data': selection }, success: function (result) {
-                    Plotly.newPlot('chart', result, {});;
+                    Plotly.newPlot('chart', result, {});
+                console.log(result);
                 }
             });
         }
@@ -21,12 +22,27 @@
         <h1>Electrocardiogram Viewer</h1>
     </div>
     <section class="desc">
-        <h4>Select a time strip</h4>
+        
+        <h3>File Information</h3>
+        <table style="letter-spacing: 1px">
+            <tr>
+                <td>&emsp;&emsp;<b>File ID :</b>&emsp;{{meta["File_ID"]}}</td>
+                <td>&emsp;&emsp;<b>Recording Date :</b>&emsp;{{meta["Recording_Date"]}}</td>
+            </tr>
+            <tr>
+                <td>&emsp;&emsp;<b>File Type :</b>&emsp;{{meta["File_Type"]}}</td>
+                <td>&emsp;&emsp;<b>Recording Time :</b>&emsp;{{meta["Recording_Time"]}} HH:MM:SS</td>
+            </tr>
+            <tr>
+                <td>&emsp;&emsp;<b>File Time :</b>&emsp;{{meta["File_Time"]}}</td>                
+                <td>&emsp;&emsp;<b>Recording Duration :</b>&emsp;{{meta["Recording_Duration"]}} HH:MM:SS</td>
+            </tr>
+        </table>
+        
+        <h3 style="margin-top: 50px;">Select a time strip</h3>
         <p>The strips are of 40 seconds range.</p>
-        <form class="inpArea">
-            <input id="strip" placeholder="Enter an Integer (1-{{n_strips}})" type="text", name="fname">
-            <button id="gobutton" onclick="cb(document.getElementById('strip').value)">Go</button>
-        </form>
+        <input id="strip" placeholder="Enter an Integer (1-{{meta['Strips']}})" type="text">
+        <button id="gobutton" onclick="cb(document.getElementById('strip').value)">Go</button>
     </section>
     
     <div id="chart" class="chart"></div>
